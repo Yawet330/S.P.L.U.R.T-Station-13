@@ -32,7 +32,13 @@
 	gib_type = /obj/effect/decal/cleanable/blood/gibs/xeno
 	unique_name = 1
 
-	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")
+	var/static/regex/alien_name_regex = new("Alien (Larvae|Sentinel|Drone|Hunter|Praetorian|Queen)( \\(\\d+\\))?") //SPLURT Edit: Looks nicer :3
+
+/mob/living/carbon/alien/verb/toggle_gender()
+	set name = "Set Mob Gender"
+	set desc = "Allows you to set your gender."
+	set category = "IC"
+	change_gender()
 
 /mob/living/carbon/alien/Initialize(mapload)
 	add_verb(src, /mob/living/proc/mob_sleep)
