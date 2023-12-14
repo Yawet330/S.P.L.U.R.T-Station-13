@@ -32,7 +32,7 @@
 	gib_type = /obj/effect/decal/cleanable/blood/gibs/xeno
 	unique_name = 1
 
-	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")
+	var/static/regex/alien_name_regex = new("Alien (Larvae|Sentinel|Drone|Hunter|Praetorian|Queen)( \\(\\d+\\))?") //SPLURT Edit: Looks nicer :3
 
 /mob/living/carbon/alien/Initialize(mapload)
 	add_verb(src, /mob/living/proc/mob_sleep)
@@ -45,12 +45,6 @@
 	if(can_ventcrawl)
 		AddElement(/datum/element/ventcrawling, given_tier = VENTCRAWLER_ALWAYS)
 
-	. = ..()
-
-/mob/living/carbon/alien/ComponentInitialize() //SPLURT ADD: Xenomorph Flavortext by default
-	AddElement(/datum/element/flavor_text/carbon, _name = "Flavor Text", _save_key = "flavor_text")
-	AddElement(/datum/element/flavor_text/carbon/temporary, "", "Set Pose (Temporary Flavor Text)", "This should be used only for things pertaining to the current round!", _save_key = null)
-	AddElement(/datum/element/flavor_text, _name = "OOC Notes", _addendum = "Put information on ERP/vore/lewd-related preferences here. THIS SHOULD NOT CONTAIN REGULAR FLAVORTEXT!!", _save_key = "ooc_notes", _examine_no_preview = TRUE)
 	. = ..()
 
 /mob/living/carbon/alien/create_internal_organs()
