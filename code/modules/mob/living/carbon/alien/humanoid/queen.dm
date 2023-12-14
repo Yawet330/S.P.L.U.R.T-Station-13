@@ -18,7 +18,6 @@
 	meleeSlashSAPower = 60
 
 	var/alt_inhands_file = 'icons/mob/alienqueen.dmi'
-	var/eggsac = TRUE //SPLURT edit. Does this royal have an eggsac? Probably useful if someone ports TGMC Xenos.
 
 /mob/living/carbon/alien/humanoid/royal/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, bypass_immunity = FALSE)
 	return 0
@@ -56,26 +55,16 @@
 	QDEL_NULL(promote)
 	QDEL_NULL(small_sprite)
 	return ..()
-										//SPLURT EDIT: Stationside spawn without eggsac//
+
+/* --Moved to alien.dm - SPLURT--\*
 /mob/living/carbon/alien/humanoid/royal/queen/create_internal_organs()
 	internal_organs += new /obj/item/organ/alien/plasmavessel/large/queen
 	internal_organs += new /obj/item/organ/alien/resinspinner
 	internal_organs += new /obj/item/organ/alien/acid
 	internal_organs += new /obj/item/organ/alien/neurotoxin
-	if(eggsac)
-		internal_organs += new /obj/item/organ/alien/eggsac
-	..()
+	internal_organs += new /obj/item/organ/alien/eggsac
+	..()*/
 
-/mob/living/carbon/alien/humanoid/royal/queen/station
-	eggsac = FALSE
-
-/mob/living/carbon/alien/humanoid/royal/queen/station/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE, bypass_immunity = FALSE)
-	return TRUE //Can be sedated
-
-/mob/living/carbon/alien/humanoid/royal/queen/station/reagent_check(datum/reagent/R)
-	return FALSE //ditto, even if for some reason some person updates this code so all xenomorphs have different processing
-
-											//SPLURT EDIT END//
 //Queen verbs
 /obj/effect/proc_holder/alien/lay_egg
 	name = "Lay Egg"
