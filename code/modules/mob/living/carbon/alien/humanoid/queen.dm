@@ -56,14 +56,13 @@
 	QDEL_NULL(small_sprite)
 	return ..()
 
-/* --Moved to alien.dm - SPLURT--\*
 /mob/living/carbon/alien/humanoid/royal/queen/create_internal_organs()
 	internal_organs += new /obj/item/organ/alien/plasmavessel/large/queen
 	internal_organs += new /obj/item/organ/alien/resinspinner
 	internal_organs += new /obj/item/organ/alien/acid
 	internal_organs += new /obj/item/organ/alien/neurotoxin
 	internal_organs += new /obj/item/organ/alien/eggsac
-	..()*/
+	..()
 
 //Queen verbs
 /obj/effect/proc_holder/alien/lay_egg
