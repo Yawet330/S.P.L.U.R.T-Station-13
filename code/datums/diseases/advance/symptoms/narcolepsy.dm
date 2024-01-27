@@ -67,28 +67,28 @@ Bonus
 		if(2)
 			if(prob(10))
 				to_chat(M, "<span class='warning'>You feel very tired.</span>")
-				sleepy_ticks += rand(10,14)
+				sleepy_ticks += rand(3,7) //SPLURT EDIT: Nerfs Narcolepsy
 				if(stamina)
-					M.adjustStaminaLoss(10)
+					M.adjustStaminaLoss(5) //SPLURT EDIT: Nerfs Narcolepsy
 		if(3)
 			if(prob(15))
 				to_chat(M, "<span class='warning'>You try to focus on staying awake.</span>")
-				sleepy_ticks += rand(10,14)
+				sleepy_ticks += rand(3,7) //SPLURT EDIT: Nerfs Narcolepsy
 				if(stamina)
-					M.adjustStaminaLoss(15)
+					M.adjustStaminaLoss(10) //SPLURT EDIT: Nerfs Narcolepsy
 		if(4)
 			if(prob(20))
 				to_chat(M, "<span class='warning'>You nod off for a moment.</span>")
-				sleepy_ticks += rand(10,14)
+				sleepy_ticks += rand(3,7) //SPLURT EDIT: Nerfs Narcolepsy
 				if(stamina)
-					M.adjustStaminaLoss(20)
+					M.adjustStaminaLoss(15) //SPLURT EDIT: Nerfs Narcolepsy
 		if(5)
 			if(prob(25))
 				to_chat(M, "<span class='warning'>[pick("So tired...","You feel very sleepy.","You have a hard time keeping your eyes open.","You try to stay awake.")]</span>")
-				M.drowsyness = max(M.drowsyness, 2)
-				sleepy_ticks += rand(10,14)
+				M.drowsyness = max(M.drowsyness, 2) //SPLURT EDIT: Nerfs Narcolepsy
+				sleepy_ticks += rand(3,7)
 				if(stamina)
-					M.adjustStaminaLoss(30)
+					M.adjustStaminaLoss(25) //SPLURT EDIT: Nerfs Narcolepsy
 
 
 

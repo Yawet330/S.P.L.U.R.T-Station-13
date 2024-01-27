@@ -24,7 +24,7 @@ Bonus
 	stage_speed = 0
 	transmittable = -3
 	level = 6
-	severity = 5
+	severity = 4 //SPLURT EDIT: -1 to value (Necrotizing Fasciitis requires other symptoms to be lethal)
 	base_message_chance = 50
 	symptom_delay_min = 15
 	symptom_delay_max = 60

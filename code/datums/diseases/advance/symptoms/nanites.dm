@@ -5,22 +5,22 @@
 	resistance = 2
 	stage_speed = 2
 	transmittable = -1
-	level = 7
+	level = 6 //SPLURT EDIT: -1 to value: Makes this more common!
 	severity = 0
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/reverse_boost = FALSE
 	threshold_desc = list(
-		"Transmission 5" = "Increases the virus' growth rate while nanites are present.",
-		"Stage Speed 7" = "Increases the replication boost."
+		"Transmission 3" = "Increases the virus' growth rate while nanites are present.",
+		"Stage Speed 5" = "Doubles the replication boost."
 	)
 
 /datum/symptom/nano_boost/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 5) //reverse boost
+	if(A.properties["transmittable"] >= 3) //reverse boost //SPLURT EDIT: -2 to value
 		reverse_boost = TRUE
-	if(A.properties["stage_rate"] >= 7) //more nanites
+	if(A.properties["stage_rate"] >= 5) //more nanites //SPLURT EDIT: -2 to value
 		power = 2
 
 /datum/symptom/nano_boost/Activate(datum/disease/advance/A)
@@ -31,14 +31,14 @@
 	if(reverse_boost && SEND_SIGNAL(M, COMSIG_HAS_NANITES))
 		if(prob(A.stage_prob))
 			A.stage = min(A.stage + 1,A.max_stages)
-			
+
 /datum/symptom/nano_destroy
 	name = "Silicolysis"
 	desc = "The virus reacts to nanites in the host's bloodstream by attacking and consuming them."
 	stealth = 0
 	resistance = 4
-	stage_speed = -1
-	transmittable = 1
+	stage_speed = 5 //SPLURT EDIT: +6 to value (makes it so you cant use nanites!)
+	transmittable = 3 //SPLURT EDIT: +2 to value (Makes it more worthwhile for thresholding reasons)
 	level = 7
 	severity = 0
 	symptom_delay_min = 1

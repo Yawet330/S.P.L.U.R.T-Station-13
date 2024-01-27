@@ -22,7 +22,7 @@ Bonus
 	resistance = -2
 	stage_speed = -3
 	transmittable = -1
-	level = 4
+	level = 5 //SPLURT EDIT: +1 to value (this is lethal because it stops people from seeking a cure)
 	severity = 2
 	base_message_chance = 50
 	symptom_delay_min = 15

@@ -19,8 +19,8 @@ Bonus
 	name = "Fever"
 	desc = "The virus causes a febrile response from the host, raising its body temperature."
 	stealth = 0
-	resistance = 3
-	stage_speed = 3
+	resistance = 4 //SPLURT EDIT: +1 to value
+	stage_speed = 4 //SPLURT EDIT: +1 to value
 	transmittable = 2
 	level = 2
 	severity = 2

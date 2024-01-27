@@ -44,7 +44,6 @@
 /datum/symptom/heal/proc/passive_message_condition(mob/living/M)
 	return TRUE
 
-
 /datum/symptom/heal/starlight
 	name = "Starlight Condensation"
 	desc = "The virus reacts to direct starlight, producing regenerative chemicals. Works best against toxin-based damage."
@@ -56,16 +55,16 @@
 	passive_message = "<span class='notice'>You miss the feeling of starlight on your skin.</span>"
 	var/nearspace_penalty = 0.3
 	threshold_desc = list(
-		"Stage Speed 6" = "Increases healing speed.",
-		"Transmission 6" = "Removes penalty for only being close to space.",
+		"Stage Speed 5" = "Increases healing speed.", //SPLURT EDIT: Buffs Healing Symptoms
+		"Transmission 5" = "Removes penalty for only being close to space.", //SPLURT EDIT: Buffs Healing Symptoms
 	)
 
 /datum/symptom/heal/starlight/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["transmittable"] >= 6)
+	if(A.properties["transmittable"] >= 5) //SPLURT EDIT: Buffs Healing Symptoms
 		nearspace_penalty = 1
-	if(A.properties["stage_rate"] >= 6)
+	if(A.properties["stage_rate"] >= 5) //SPLURT EDIT: Buffs Healing Symptoms
 		power = 2
 
 /datum/symptom/heal/starlight/CanHeal(datum/disease/advance/A)
@@ -103,7 +102,7 @@
 	name = "Toxolysis"
 	stealth = 0
 	resistance = -2
-	stage_speed = 2
+	stage_speed = 5 //SPLURT EDIT: Buffs Toxolysis to make worth taking
 	transmittable = -2
 	level = 7
 	var/food_conversion = FALSE
@@ -145,15 +144,15 @@
 	desc = "The virus causes the host's metabolism to accelerate rapidly, making them process chemicals twice as fast,\
 	 but also causing increased hunger."
 	threshold_desc = list(
-		"Stealth 3" = "Reduces hunger rate.",
-		"Stage Speed 10" = "Chemical metabolization is tripled instead of doubled.",
+		"Stealth 1" = "Reduces hunger rate.", //SPLURT EDIT: Buffs Healing Symptoms
+		"Stage Speed 7" = "Chemical metabolization is tripled instead of doubled.", //SPLURT EDIT: Buffs Healing Symptoms
 	)
 /datum/symptom/heal/metabolism/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["stage_rate"] >= 10)
+	if(A.properties["stage_rate"] >= 7) //SPLURT EDIT: Buffs Healing Symptoms
 		triple_metabolism = TRUE
-	if(A.properties["stealth"] >= 3)
+	if(A.properties["stealth"] >= 1) //SPLURT EDIT: Buffs Healing Symptoms
 		reduced_hunger = TRUE
 
 /datum/symptom/heal/metabolism/Heal(mob/living/carbon/C, datum/disease/advance/A, actual_power)
@@ -499,3 +498,62 @@
 		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len))
 			M.update_damage_overlays()
 	return 1
+
+		 //SPLURT ADDITION: PURE OF BODY\\
+ //HEALS FASTER THE LESS CHEMICALS YOU HAVE IN YOU!//
+
+/datum/symptom/heal/purity
+	name = "Akashic Purity"
+	desc = "The virus directly binds to and takes control of vital functions of the liver, heart and lungs - filtering out chemicals from the body; while maintaining health in the process..."
+	stealth = -4 //VERY obvious on scanners.
+	resistance = 2
+	stage_speed = 3
+	transmittable = 1
+	level = 6
+	passive_message = "<span class='notice'>You feel pure of mind and of body.</span>"
+	var/absorption_amt = 3
+	threshold_desc = list(
+		"Resistance 5" = "Increases chemical removal speed.", //Also, by proxy, increases how fast they heal!
+		"Stage Speed 5" = "Increases healing effectiveness.", //By just doubling.
+	)
+
+/datum/symptom/heal/purity/Start(datum/disease/advance/A)
+	if(!..())
+		return
+	if(A.properties["stage_rate"] >= 5)
+		power = 2
+	if(A.properties["resistance"] >= 5)
+		absorption_amt = 6
+
+/datum/symptom/heal/purity/CanHeal(datum/disease/advance/A)
+	. = 0
+	var/mob/living/M = A.affected_mob
+	if(M.reagents.reagent_list.len != 0) //Checks to see if the list is populated or not.
+		for(var/K in M.reagents.reagent_list)
+			var/datum/reagent/R = K
+			M.reagents.remove_reagent(R.type,absorption_amt)
+			. -= power * 0.1 //Per reagent in the body, you lose a decent amount of healpower.
+	else
+		. += power * 4 //No reagents? Virus can work without interruption.
+
+
+/datum/symptom/heal/purity/Heal(mob/living/carbon/M, datum/disease/advance/A, actual_power)
+	var/heal_amt = 2 * actual_power //Equates to ~8 brute/burn/tox a second!
+	M.adjustToxLoss(-(2 * heal_amt))
+	var/list/parts = M.get_damaged_bodyparts(1,1)
+	if(!parts.len)
+		return
+
+	if(prob(5))
+		to_chat(M, "<span class='notice'>You feel your wounds knitting themselves back together.</span>")
+
+	for(var/obj/item/bodypart/L in parts)
+		if(L.heal_damage(heal_amt/parts.len, heal_amt/parts.len))
+			M.update_damage_overlays()
+
+	return 1
+
+/datum/symptom/heal/purity/passive_message_condition(mob/living/M)
+	if(M.getBruteLoss() || M.getFireLoss())
+		return TRUE
+	return FALSE
