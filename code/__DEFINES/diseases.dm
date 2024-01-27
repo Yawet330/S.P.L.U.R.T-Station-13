@@ -1,6 +1,6 @@
 
 #define DISEASE_LIMIT		3 //Tripled! - SPLURT EDIT: Gives virologists more things to do
-#define VIRUS_SYMPTOM_LIMIT	13 //Doubled! - SPLURT EDIT: Makes it so diseases can be more potent (13-1=12)
+#define VIRUS_SYMPTOM_LIMIT	9 //Doubled! - SPLURT EDIT: Makes it so diseases can be more potent when working in unison!
 
 //Visibility Flags
 #define HIDDEN_SCANNER	(1<<0)
