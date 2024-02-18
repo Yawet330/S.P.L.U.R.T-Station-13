@@ -624,8 +624,8 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list ( \
 	var/turf/T = get_turf(user) //we may have moved. adjust as needed...
 	var/area/A = get_area(user)
 	if((!is_station_level(T.z) && !is_mining_level(T.z)) || !(A?.area_flags & CULT_PERMITTED))
-		to_chat(user, "<span class='warning'>The veil is not weak enough here.</span>")
-		return FALSE
+		to_chat(user, "<span class='warning'>The veil is stronger here... This does not feel right..</span>")//SPLURT EDIT: Removes forceful cult prevention ruining AGR
+		//return FALSE //SPLURT EDIT: Removes forceful cult prevention ruining AGR
 	return ..()
 
 /obj/item/stack/sheet/runed_metal/get_main_recipes()
